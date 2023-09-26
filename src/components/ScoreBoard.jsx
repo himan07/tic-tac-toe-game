@@ -2,6 +2,7 @@ import React from "react";
 
 const ScoreBoard = ({ score, xPlaying }) => {
   const { xScore, oScore } = score;
+  
   return (
     <div className="scoreboard">
       <span className={`score x-score ${xPlaying && "inactive"}`}>

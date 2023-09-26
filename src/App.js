@@ -31,7 +31,7 @@ const App = () => {
 
     const winner = checkwinner(updatedboard);
     if (winner) {
-      if (winner === 0) {
+      if (winner === "o") {
         let { oScore } = score;
         oScore += 1;
         setScore({ ...score, oScore });
