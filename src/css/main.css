@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #ddd;
+}
+
+.box {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px #888;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    font-size: 5em;
+    font-weight: bold;
+    line-height: 1rem;
+    margin: 0.5rem;
+    padding-bottom: 12px;
+}
+
+.box:hover {
+    box-shadow: 0px 0px 15px #888;
+}
+
+.x {
+    color: rgb(255, 70, 37);
+}
+
+.o {
+    color: rgb(44, 135, 255);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 6rem);
+    place-items: center;
+    justify-content: center;
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 20rem;
+    font-size: 1.5em;
+    background-color: white;
+    margin: 3rem auto;
+    box-shadow: 0px 0px 8px #888;
+    border-radius: 0.5rem;
+    font-weight: bold;
+}
+
+.score {
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.x-score {
+    color: rgb(255, 70, 37);
+    border-bottom: 5px solid rgb(255, 70, 37);
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.o-score {
+    color: rgb(44, 135, 255);
+    border-bottom: 5px solid rgb(44, 135, 255);
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.inactive {
+    border: 5px solid transparent !important;
+    margin: 0;
+    padding: 0;
+}
+
+.reset-btn {
+    border: none;
+    border-radius: 0.5rem;
+    background-color: rgb(0, 110, 255);
+    color: white;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    margin: 2rem auto;
+    display: block;
+    cursor: pointer;
+}
