@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+// App.js
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setBoard, togglePlayer, resetGame, updateScore } from "./redux/action";
 import Board from "./components/Board";
 import ScoreBoard from "./components/ScoreBoard";
 import ResetButton from "./components/ResetButton";
 
 const App = () => {
-  const [board, setBoard] = useState(Array(9).fill(null));
-  const [xPlaying, setXplaying] = useState(true);
-  const [score, setScore] = useState({ xScore: 0, oScore: 0 });
-  const [gameOver, setGameOver] = useState(false);
+  const dispatch = useDispatch();
+  const { board, xPlaying, score, gameOver } = useSelector((state) => state);
 
   const win_conditions = [
     [0, 1, 2],
@@ -21,45 +22,35 @@ const App = () => {
   ];
 
   const handleBoxClick = (boxIdx) => {
-    const updatedboard = board.map((value, idx) => {
-      if (idx === boxIdx) {
-        return xPlaying === true ? "x" : "o";
-      } else {
-        return value;
-      }
-    });
+    if (!board[boxIdx] && !gameOver) {
+      const updatedBoard = [...board];
+      updatedBoard[boxIdx] = xPlaying ? "x" : "o";
 
-    const winner = checkwinner(updatedboard);
-    if (winner) {
-      if (winner === "o") {
-        let { oScore } = score;
-        oScore += 1;
-        setScore({ ...score, oScore });
-      } else {
-        let { xScore } = score;
-        xScore += 1;
-        setScore({ ...score, xScore });
+      dispatch(setBoard(updatedBoard));
+      dispatch(togglePlayer());
+
+      const winner = checkWinner(updatedBoard);
+      if (winner) {
+        dispatch(updateScore(winner));
       }
     }
-
-    setBoard(updatedboard);
-    setXplaying(!xPlaying);
   };
 
-  const checkwinner = (board) => {
+  const checkWinner = (board) => {
     for (let i = 0; i < win_conditions.length; i++) {
       const [x, y, z] = win_conditions[i];
       if (board[x] && board[x] === board[y] && board[y] === board[z]) {
-        setGameOver(true);
+        dispatch(resetGame());
         return board[x];
       }
     }
+    return null;
   };
 
   const resetBoard = () => {
-    setGameOver(false);
-    setBoard(Array(9).fill(null));
+    dispatch(resetGame());
   };
+
   return (
     <div className="App">
       <ScoreBoard score={score} xPlaying={xPlaying} />
